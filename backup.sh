@@ -18,10 +18,11 @@ echo Deleting files older than ${DAYS_TO_KEEP} days.
 find /backup* -mtime +${DAYS_TO_KEEP} -exec rm {} \;
 
 if ls /rclone.conf > /dev/null; then
-  echo Running rclone copy...
-  rclone -vv $RCLONE_EXTRA_ARGS --config /rclone.conf copy /backup/${filename}.zip backup:${RCLONE_PATH}
-  echo Cleaning up remote backups older than ${DAYS_TO_KEEP} days...
-  rclone -vv $RCLONE_EXTRA_ARGS --config /rclone.conf --min-age ${DAYS_TO_KEEP}d delete backup:${RCLONE_PATH}
+  echo Cleaning up local backups older than ${DAYS_TO_KEEP} days...
+  rclone -vv --min-age ${DAYS_TO_KEEP}d /backup/*
+  
+  echo Running rclone sync...
+  rclone -vv $RCLONE_EXTRA_ARGS --config /rclone.conf sync /backup backup:${RCLONE_PATH}
 else
   echo You did not specify RCLONE_TYPE... Skipping rclone sync.
 fi
