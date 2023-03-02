@@ -19,7 +19,7 @@ find /backup* -mtime +${DAYS_TO_KEEP} -exec rm {} \;
 
 if ls /rclone.conf > /dev/null; then
   echo Cleaning up local backups older than ${DAYS_TO_KEEP} days...
-  rclone -vv --min-age ${DAYS_TO_KEEP}d /backup/*
+  rclone -vv --min-age ${DAYS_TO_KEEP}d delete /backup/*
   
   echo Running rclone sync...
   rclone -vv $RCLONE_EXTRA_ARGS --config /rclone.conf sync /backup backup:${RCLONE_PATH}
