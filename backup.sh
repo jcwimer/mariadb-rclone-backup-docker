@@ -23,7 +23,7 @@ if ls /rclone.conf > /dev/null; then
   echo Cleaning up remote backups older than ${DAYS_TO_KEEP} days...
   rclone -vv $RCLONE_EXTRA_ARGS --config /rclone.conf --min-age ${DAYS_TO_KEEP}d delete backup:${RCLONE_PATH}
   echo Cleaning up local backups older than ${DAYS_TO_KEEP} days...
-  rclone -vv --min-age ${DAYS_TO_KEEP}d delete /backup/*
+  rclone -vv --min-age ${DAYS_TO_KEEP}d delete /backup/
 else
   echo You did not specify RCLONE_TYPE... Skipping rclone sync.
 fi
