@@ -1,7 +1,7 @@
 #!/bin/bash
 project_dir="$( dirname $(readlink -f ${BASH_SOURCE[0]}))"
 
-docker build -t jcwimer/mariadb-rclone-backup-docker:10.3 .
+docker build -t jcwimer/mariadb-rclone-backup-docker:10.4 .
 
 if ! docker network ls | grep mariadb > /dev/null; then
   echo Creating mariadb docker network
